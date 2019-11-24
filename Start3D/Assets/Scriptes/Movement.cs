@@ -8,12 +8,14 @@ public class Movement : MonoBehaviour
     public bool isGrounded;
     public float m_speed = 0.1f;
     public float j_speed = 10.0f;
+    public Animator animator;
     private float canJump = 0f;
 
     Rigidbody rb;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void OnCollisionEnter(Collision col)
@@ -50,7 +52,14 @@ public class Movement : MonoBehaviour
 
         // Récupération des touches haut et bas
         if (Input.GetKey(KeyCode.UpArrow))
+        {
+            animator.SetBool("isWalking", true);
             move.z += m_speed;
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
         if (Input.GetKey(KeyCode.DownArrow))
             move.z -= m_speed;
 
